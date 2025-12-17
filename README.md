@@ -65,6 +65,7 @@ Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되�
 아래는 모든 사이클에 대한 시간-SOC 그래프이다.
 ![VAH01 example](figures/VAH01_SOC.png)
 
+-----------------------------------------
 
 ## 3. Model and Training step
 
