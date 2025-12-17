@@ -62,6 +62,7 @@ Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되�
 아래 사진은 전처리 이후 데이터셋의 전압, 전류, 온도 그래프이다. (VAH01)
 ![VAH01 example](figures/VAH01_V,I,T.png)
 
+
 아래는 모든 사이클에 대한 시간-SOC 그래프이다.
 ![VAH01 example](figures/VAH01_SOC.png)
 
