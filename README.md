@@ -347,7 +347,7 @@ print(cell_mae)
 
 ## 4. Results and Discussion
 
-### 4.1 basic model
+### 4.1 Basic model
 
 3.1의 모델을 실행했을 때 결과는 다음과 같다. 
 
@@ -357,9 +357,23 @@ print(cell_mae)
 전체 MAE = 0.019, RMSE = 0.034이며, 
 Test cell (VAH25, 27, 02, 01)에 대한 MAE는 0.0079, 0.0080, 0.0198, 0.0216이다. 
 
-아래 그림은 각각 True SOC와 모델이 예측한 SOC 간의 산점도와, 한 사이클에서 실제 전류 적분으로 구한 SOC와 모델이 예측한 SOC를 그린 것이다. 
+아래 그림은 True SOC와 모델이 예측한 SOC 간의 산점도이다.
 
 ![RF_basic](figures/RF_result1.png)
+
+아래는 한 사이클에서 실제 전류 적분으로 구한 SOC와 모델이 예측한 SOC를 그린 것이다. 그래프를 그린 사이클 번호는 랜덤으로 선택하였다.
+
 ![RF_basic](figures/RF_result2.png)
+
+실제 SOC가 0.4 - 0.6 부근과 0.8 - 1.0 부근에서 예측 SOC의 오차가 커짐을 확인할 수 있다. 이 구간은 eVTOL이 각각 landing과 take-off를 하는 시점이다. 
+이착륙 구간에서는 셀이 높은 출력을 요구받으며, 이에 따라 전류가 급격히 증가하고 내부 저항 및 과도 응답에 의해 전압의 순간적인 변동이 커진다. 이와 같은 급격한 동적 거동은 SOC 추정을 어렵게 만드는 요인으로 작용한다. 
+
+-------------------------
+### 4.2 Extended model
+
+3.2 의 모델을 실행했을 때의 결과는 다음과 같다. 
+
+![RF_basic](figures/RF_dVdt_result0.png)
+
 
 ## 5. reference
