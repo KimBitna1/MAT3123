@@ -1,6 +1,7 @@
 # State of Charge (SOC) estimation for electric Vertical Take-Off and Landing aircraft (eVTOL) batteries
 --------------------
 ## 1. Introduction
+
 ### 1.1 State of Charge of batteries
 
 리튬 이온 배터리는 전기차, 드론, 항공기 등 다양한 시스템에서 사용되는 중요한 에너지 저장 장치이다. 배터리를 안전하고 효율적으로 사용하기 위해서는 현재 배터리에 얼마나 많은 에너지가 남아있는지 정확하게 알아야 한다. 
@@ -39,13 +40,18 @@ eVTOL의 독특한 주행 특성은 급격하게 변동하는 power를 발생시
 ----------------------------
 ## 2. Data description and Preprocessing
 
+### 2.1 Data description
 본 프로젝트에서는 Carnegi Mellon University에서 공개한 eVTOL 배터리 실험 데이터셋을 사용하였다. 
 https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 
 해당 데이터에는 eVTOL 항공기의 운용 환경을 모사한 전류 프로파일 하에서 리튬 이온 배터리를 반복적으로 충방전하며 측정된 실험 데이터이다. 
-각 mission profile은 다음과 같은 형식을 따른다. 
-1) Take-Off: 셀이 높은 constant power로 방전된다.
-2) 
+각 실험은 하나의 mission profile을 기준으로 수행되며, 하나의 사이클은 charging, rest, take-off, cruise, landing, rest의 단계로 구성된다. 특히 take-off와 landing 구간에서 요구되는 높은 전력을 반영하였다. 
+
+Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되었으며, 각 셀은 오직 하나의 실험 조건 (온도, 충전 프로토콜, 비행 프로파일 등)만이 변경되었다.  
+예를 들어, VAH01.csv는 baseline에서 실험된 셀이며, VAH02.csv는 cruise time이 1000초로 증가된 조건 하에서 실험된 셀이다. 
+
+---------------------------
+### 2.2 Preprocessing
 
 
 ## 3. Model and Training step
