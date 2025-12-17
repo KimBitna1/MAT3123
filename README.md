@@ -45,13 +45,21 @@ eVTOL의 독특한 주행 특성은 급격하게 변동하는 power를 발생시
 https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 
 해당 데이터에는 eVTOL 항공기의 운용 환경을 모사한 전류 프로파일 하에서 리튬 이온 배터리를 반복적으로 충방전하며 측정된 실험 데이터이다. 
-각 실험은 하나의 mission profile을 기준으로 수행되며, 하나의 사이클은 charging, rest, take-off, cruise, landing, rest의 단계로 구성된다. 특히 take-off와 landing 구간에서 요구되는 높은 전력을 반영하였다. 
+각 실험은 하나의 mission profile을 기준으로 수행되며, 하나의 사이클은 charging, rest, take-off, cruise, landing, rest의 단계로 구성된다. 특히 take-off와 landing 구간에서 요구되는 높은 전력을 반영하였다. 또한 50 cycle마다 배터리의 성능 평가를 위해 Reference Performance Test (RPT)를 수행하였다. 
 
 Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되었으며, 각 셀은 오직 하나의 실험 조건 (온도, 충전 프로토콜, 비행 프로파일 등)만이 변경되었다.  
 예를 들어, VAH01.csv는 baseline에서 실험된 셀이며, VAH02.csv는 cruise time이 1000초로 증가된 조건 하에서 실험된 셀이다. 
 
 ---------------------------
 ### 2.2 Preprocessing
+모델 학습을 위해 다음과 같은 전처리 과정을 수행하였다. 
+
+1) 원본 데이터의 cycle number에 오류가 있어 새로운 cycle number를 부여하였다.
+2) 측정에 오류가 있는 문제 사이클을 구분하기 위해 valid_cycle을 따로 표기하였다. 
+3) mission 사이클만 학습시키기 위해 RPT 사이클을 따로 표기하였다.
+4) 충방전 시 들어오고 나간 전하량을 이용하여 각 사이클 별 SOC를 계산하였다.
+
+아래 사진은 전처리 이후 데이터셋의 모든 사이클에 대한 그래프이다. (VAH
 
 
 ## 3. Model and Training step
