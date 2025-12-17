@@ -354,8 +354,10 @@ print(cell_mae)
 ![RF_basic](figures/RF_result0.png)
 
 전체 test 셋에 대한 MAE와 RMSE를 구하고, 특히 각 셀에 대한 MAE를 나타내었다. 
-전체 MAE = 0.019, RMSE = 0.034이며, 
-Test cell (VAH25, 27, 02, 01)에 대한 MAE는 0.0079, 0.0080, 0.0198, 0.0216이다. 
+
+전체 MAE = 0.01614, RMSE = 0.03161이며, 
+
+Test cell (VAH27, VAH02, VAH01, VAH25)에 대한 MAE는 각각 0.012854, 0.013376, 0.019073, 0.019187이다. 
 
 아래 그림은 True SOC와 모델이 예측한 SOC 간의 산점도이다.
 
@@ -374,6 +376,18 @@ Test cell (VAH25, 27, 02, 01)에 대한 MAE는 0.0079, 0.0080, 0.0198, 0.0216이
 3.2 의 모델을 실행했을 때의 결과는 다음과 같다. 
 
 ![RF_basic](figures/RF_dVdt_result0.png)
+
+전체 test 셋에 대한 MAE = 0.01910, RMSE = 0.03401이며, 
+
+Test cell (VAH25, VAH27, VAH02, VAH01)에 대한 MAE는 각각 0.007937, 0.008076, 0.019821, 0.021642이다. 
+
+3.1의 결과와 비교했을 때 개선되었음을 확인할 수 있다. 
+
+아래 그림은 True SOC와 모델이 예측한 SOC의 산점도와, 실제 SOC와 모델 예측 SOC 그래프를 그린 것이다. 
+
+![RF_basic](figures/RF_dVdt_result1.png)
+
+![RF_basic](figures/RF_dVdt_result2.png)
 
 
 ## 5. reference
