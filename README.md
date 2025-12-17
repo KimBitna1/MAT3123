@@ -57,7 +57,7 @@ Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되�
 1) 원본 데이터의 cycle number에 오류가 있어 새로운 cycle number를 부여하였다.
 2) 측정에 오류가 있는 문제 사이클을 구분하기 위해 valid_cycle을 따로 표기하였다. 
 3) mission 사이클만 학습시키기 위해 RPT 사이클을 따로 표기하였다.
-4) 충방전 시 들어오고 나간 전하량을 이용하여 각 사이클 별 SOC를 계산하였다.
+4) 충방전 시 들어오고 나간 전하량을 이용하여 SOC를 계산하였다. 
    
 
 아래 사진은 전처리 이후 데이터셋의 전압, 전류, 온도 그래프이다. (VAH01)
@@ -65,13 +65,24 @@ Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되�
 ![VAH01 example](figures/VAH01_VIT.png)
 
 
-아래는 모든 사이클에 대한 시간-SOC 그래프이다.
+아래는 모든 사이클에 대해 계산한 SOC의 그래프이다.
 
 ![VAH01 example](figures/soc_VAH01.png)
 
 -----------------------------------------
 
 ## 3. Model and Training step
+
+본 프로젝트에서는 SOC 추정을 위해 Random Forest regressor를 사용하였다. 
+eVTOL 배터리의 경우 전압, 전류, 온도와 SOC의 관계가 명확한 선형 모델로 표현되기 어렵기 때문에 복잡한 비선형 관계를 학습할 수 있는 Random Forest가 적합하다고 판단하였다. 또한 RF는 별도의 하이퍼파라미터 튜닝 없이도 안정적인 성능을 보이고, 데이터 개수가 많지 않아도 과적합에 강하다는 장점이 있다. 
+
+하나의 데이터 셋은 하나의 배터리 셀에 대해 초기 상태부터 열화가 진행될 때까지의 전체 과정을 포함한다. 따라서 데이터 포인트 단위가 아닌 셀 단위로 train/test split을 적용하였다. 
+
+SOC추정은 RPT 사이클을 제외한 모든 valid한 사이클에 대해 추정되며, 여기서는 특히 discharge 구간의 SOC 추정에 초점을 맞춘다. Discharge 구간이 eVTOL의 비행 중 구간이며, 해당 구간에서의 SOC가 안전한 운용에 있어서 더 중요하다고 판단하였기 때문이다. 
+
+SOC 추정을 위해 사용한 입력 변수는 전압, 전류, 온도이다. 전압은 SOC와 가장 직접적인 관계를 가지는 물리량이며, 전류는 방전 상태와 부하 조건을 반영한다. 또한 배터리 내부 저항 및 전기화학 반응은 온도에 크게 의존하므로 온도를 입력변수로 포함하였다. 
+추가적인 신호 처리 없이 실제로 측정 가능한 기본적인 물리량만을 입력으로 사용하였다. 이는 실제 운용 환경에서의 적용 가능성을 고려한 선택이다. 
+
 
 ```python
 import os
@@ -81,14 +92,15 @@ import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
+
 # VAH## 파일이 들어있는 폴더 
 DATA_DIR = r"D:\eVTOL dataset\ML project" 
 
 # 사용할 파일 목록 20개
 vah_list = [
     "VAH01","VAH02","VAH06","VAH07","VAH09","VAH10","VAH11","VAH12","VAH13",
-    "VAH15","VAH16","VAH17","VAH20","VAH22","VAH24","VAH25","VAH26","VAH27", "VAH28", "VAH30"
-] 
+    "VAH15","VAH16","VAH17","VAH20","VAH22","VAH24","VAH25","VAH26","VAH27", "VAH28", "VAH30"] 
+
 
 # column 이름
 t_col     = "time_s"
@@ -102,8 +114,9 @@ rpt_col   = "RPT_cycle"
 
 soc_col   = "SOC_shifted"
 
-# 파일을 모두 읽어서 각 row가 어느 파일의 row인지 표시한다.
-# 이후 셀 단위로 train/test set을 구분한다. 
+
+# 파일을 모두 읽어서 각 row가 어느 파일에서 왔는지 표기한다.
+# 이후 셀 단위로 train/test set을 구분할 것이다. 
 def load_cells(data_dir, cell_names):
     dfs = []
     for cell in cell_names:
@@ -114,6 +127,7 @@ def load_cells(data_dir, cell_names):
     return pd.concat(dfs, ignore_index=True)
 
 df = load_cells(DATA_DIR, vah_list)
+
 
 # SOC 추정을 할 사이클은 valid 한 사이클 중 RPT 사이클이 아닌 사이클이며, 
 # discharge 구간에서만 SOC를 추정한다.
@@ -128,11 +142,12 @@ dfd = df.loc[mask, use_cols].copy()
 dfd = dfd.dropna(subset=use_cols)
 dfd = dfd.sort_values(["cell_id", cycle_col, t_col])
 
-# 혹시 SOC가 물리적으로 불가능한 부분이 있을 수 있기 때문에 clip 한다. 
+
+# 혹시 물리적으로 불가능한 SOC 이상치가 있을 경우를 대비하여 clip한다.
 dfd[soc_col] = dfd[soc_col].astype(float).clip(0.0, 1.0)
 
 
-# valid, non-RPT 사이클만 남긴 후 연속적으로 cycle number를 다시 설정한다. 
+# valid, non-RPT 사이클만 남긴 후 cycle number가 연속적으로 증가할 수 있도록 재설정한다. 
 pairs = (
     dfd[["cell_id", cycle_col]]
     .drop_duplicates()
@@ -141,6 +156,7 @@ pairs = (
 pairs["cycle_ml"] = pairs.groupby("cell_id").cumcount() + 1
 
 dfd = dfd.merge(pairs, on=["cell_id", cycle_col], how="left")
+
 
 
 # 전체 20개의 파일 중, 20개를 랜덤하게 골라서 training에 사용한다. 
@@ -157,6 +173,7 @@ test_df  = dfd.loc[dfd["cell_id"].isin(test_cells)].copy()
 print("Train cells:", train_cells)
 print("Test cells :", test_cells)
 print("Train rows :", len(train_df), " Test rows:", len(test_df))
+
 
 
 # 모델 학습:
@@ -183,6 +200,7 @@ rmse = np.sqrt(mean_squared_error(y_test, y_pred))
 print(f"Test MAE  = {mae:.5f}")
 print(f"Test RMSE = {rmse:.5f}")
 
+
 # 각 파일 별 MAE
 test_df = test_df.copy()
 test_df["pred"] = y_pred
@@ -193,5 +211,8 @@ cell_mae = (
 )
 print("\nMAE by test cell:")
 print(cell_mae)
+```
 
 ## 4. Results and Discussion
+
+## 5. reference
