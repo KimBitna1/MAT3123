@@ -2,6 +2,7 @@
 --------------------
 ## 1. Introduction
 ### 1.1 State of Charge of batteries
+
 리튬 이온 배터리는 전기차, 드론, 항공기 등 다양한 시스템에서 사용되는 중요한 에너지 저장 장치이다. 배터리를 안전하고 효율적으로 사용하기 위해서는 현재 배터리에 얼마나 많은 에너지가 남아있는지 정확하게 알아야 한다. 
 
 이때 사용되는 대표적인 지표는 SOC (State of Charge)이다. SOC란 특정 온도와 discharge rate 등의 조건에서 배터리가 손상되지 않고 제공할 수 있는 최대 방전 용량을 의미한다. 이는 배터리의 nominal capacity (정격 용량)에 대해 남아있는 capacity의 비로 나타낸다. 여기서 discharge rate는 C-rate으로 표현되며, 배터리의 nominal capacity 대비 방전 전류의 크기를 의미한다. SOC를 나타내는 식은 아래와 같다.
@@ -25,16 +26,22 @@ $$
 
 ----------------------
 ### 1.2 eVTOL
-Electric Vertical Take-Off and Landing (eVTOL) aircraft는 전기 동력을 사용하는 항공기로, Urban air mobility의 발전에 따라 주목받고 있다. Automomous deliveries 혹은 air taxies 등의 단거리 이동 수요를 해결할 가능성이 있다.
 
-eVTOL은 전기차 (EV)와 달리 비행 중 수직 이륙 및 착륙, 호버링과 같은 독특한 주행 특성을 가진다. 이로 인해 급격하게 변동하는 power가 요구되며 이는 배터리 시스템에 큰 stress를 가한다. 특히 이착륙 과정에서 높은 discharge current를 요구한다. EV 배터리 실험에서는 주행 조건에 따라 C/16 - 2C 정도의 C-rate를 고려하는 반면, eVTOL의 경우 이착륙 시 1C - 20C 가량의 높은 C-rate를 요구한다. 착륙 과정에서는 배터리가 높은 power를 유지해야 하는데, 이미 배터리 셀은 소모된 상태에서 성능이 저하되므로 더욱 까다롭다. 
+Electric Vertical Take-Off and Landing (eVTOL) aircraft는 전기 동력을 사용하는 항공기로, Urban air mobility의 발전에 따라 주목받고 있다. 기존의 fixed-wing aircraft와 달리 긴 활주로가 불필요하며 수직 이착륙과 호버링이 가능하기에 Automomous deliveries나 air taxies 등의 도심 교통, 응급 항공 서비스 및 기타 단거리 운송 분야에서 적합하다. 
 
-eVTOL에서 배터리를 관리하는 것은 중요하다. 이는 비행 거리, 안전, mission reliability와 같은 핵심 요소를 직접적으로 결정하기 때문이다. 특히 복잡한 운용 특성을 가지는 만큼 배터리 내부를 묘사하고 SOC를 예측하기에 까다롭다. 따라서 현재는 eVTOL 배터리 내부 상태 추저을 위한 모델링 기법에 대한 연구가 활발히 이루어지고 있으며, 딥러닝과 물리 모델을 결합한 hybrid 방식의 모델링이 각광받고 있다. 
+eVTOL의 독특한 주행 특성은 급격하게 변동하는 power를 발생시키며, 이는 배터리 시스템에 큰 stress를 가한다. 또한 전기차(EV)와 비교했을 때 eVTOL은 더 엄격한 배터리 성능을 요구한다. 
+특히 이착륙 과정에서 높은 discharge current가 필요하다. EV 배터리 실험에서는 주행 조건에 따라 C/16 - 2C 정도의 C-rate를 고려하는 반면, eVTOL의 경우 이착륙 시 1C - 20C 가량의 높은 C-rate를 직면한다. 착륙 과정에서는 배터리가 높은 power를 유지해야 하는데, 이미 배터리 셀은 소모된 상태에서 성능이 저하되므로 더욱 까다롭다. 또한 eVTOL은 복잡하고 가변적인 열, 기계적 환경에 노출되며 urban airspace 운용에서는 안전에 대한 요구사항이 더욱 엄격하다. 
+
+따라서 eVTOL에서 배터리를 관리하는 것은 중요하다. 이는 비행 거리, 안전, mission reliability와 같은 핵심 요소를 직접적으로 결정하기 때문이다. 그러나 복잡한 운용 특성을 가지는 만큼 배터리 내부를 묘사하고 SOC를 예측하기가 어렵고, 기존의 전통적 모델링 방법은 이러한 eVTOL의 운행 상황에 적합하지 않을 수 있다. 따라서 현재는 eVTOL 배터리 내부 상태 추정을 위한 모델링 기법에 대한 연구가 활발히 이루어지고 있으며, 딥러닝과 물리 모델을 결합한 hybrid 방식의 모델링이 각광받고 있다. 
 
 
 ----------------------------
 ## 2. Data description and Preprocessing
-본 프로젝트에서는 
+
+본 프로젝트에서는 Carnegi Mellon University에서 공개한 eVTOL 배터리 실험 데이터셋을 사용하였다. 
+https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
+
+
 
 ## 3. Model and Training step
 
