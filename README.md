@@ -25,4 +25,17 @@ $$
 
 ----------------------
 ### 1.2 eVTOL
-Electric Vertical Take-Off and Landing (eVTOL) aircraft는 전기 동력을 사용하는 항공기로, Urban air mobility의 발전에 따라 주목받고 있다. Automomous deliveries 혹은 air taxies 등의 단거리 이동 수요를 해결할 가능성이 있다. eVTOL은 전기차 (EV)와 달리 비행 중 수직 이륙 및 착륙, 호버링과 같은 독특한 주행 특성을 가진다. 이로 인해 급격하게 변동하는 power가 요구되며 이는 배터리 시스템에 큰 stress를 가한다. 특히 이착륙 과정에서 높은 discharge current를 요구한다. EV 배터리 실험에서는 주행 조건에 따라 C/16 - 2C 정도의 C-rate를 고려하는 반면, eVTOL의 경우 이착륙 시 1C - 20C 가량의 높은 C-rate를 요구한다. 
+Electric Vertical Take-Off and Landing (eVTOL) aircraft는 전기 동력을 사용하는 항공기로, Urban air mobility의 발전에 따라 주목받고 있다. Automomous deliveries 혹은 air taxies 등의 단거리 이동 수요를 해결할 가능성이 있다.
+
+eVTOL은 전기차 (EV)와 달리 비행 중 수직 이륙 및 착륙, 호버링과 같은 독특한 주행 특성을 가진다. 이로 인해 급격하게 변동하는 power가 요구되며 이는 배터리 시스템에 큰 stress를 가한다. 특히 이착륙 과정에서 높은 discharge current를 요구한다. EV 배터리 실험에서는 주행 조건에 따라 C/16 - 2C 정도의 C-rate를 고려하는 반면, eVTOL의 경우 이착륙 시 1C - 20C 가량의 높은 C-rate를 요구한다. 착륙 과정에서는 배터리가 높은 power를 유지해야 하는데, 이미 배터리 셀은 소모된 상태에서 성능이 저하되므로 더욱 까다롭다. 
+
+eVTOL에서 배터리를 관리하는 것은 중요하다. 이는 비행 거리, 안전, mission reliability와 같은 핵심 요소를 직접적으로 결정하기 때문이다. 특히 복잡한 운용 특성을 가지는 만큼 배터리 내부를 묘사하고 SOC를 예측하기에 까다롭다. 따라서 현재는 eVTOL 배터리 내부 상태 추저을 위한 모델링 기법에 대한 연구가 활발히 이루어지고 있으며, 딥러닝과 물리 모델을 결합한 hybrid 방식의 모델링이 각광받고 있다. 
+
+
+----------------------------
+## 2. Data description and Preprocessing
+본 프로젝트에서는 
+
+## 3. Model and Training step
+
+## 4. Results and Discussion
