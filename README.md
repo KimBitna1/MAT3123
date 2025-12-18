@@ -92,8 +92,12 @@ SOC 추정을 위해 사용한 입력 변수는 전압, 전류, 온도이다. �
 추가적인 신호 처리 없이 실제로 측정 가능한 기본적인 물리량만을 입력으로 사용하였다. 이는 실제 운용 환경에서의 적용 가능성을 고려한 선택이다. 
 
 ### 3.1 basic model
-입력 변수로 전압, 전류, 온도만을 사용한 모델이다. 
+Input: 
+-  voltage (V)
+-  Current (C)
+-  Temperature (T)
 
+[Click here to view the notebook](notebooks/basic_model.ipynb)
 
 ----------------------------
 
