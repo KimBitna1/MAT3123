@@ -55,15 +55,17 @@ https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 
 Baseline 조건을 기준으로 총 22개의 셀에 대해 실험이 수행되었으며, 각 셀은 오직 하나의 실험 조건 (온도, 충전 프로토콜, 비행 프로파일 등)만이 변경되었다.  
 예를 들어, VAH01.csv는 baseline에서 실험된 셀이며, VAH02.csv는 cruise time이 1000초로 증가된 조건 하에서 실험된 셀이다. 
+각 데이터 파일은 시간, 전압, 전류, 충/방전 시 들어오거나 나간 전하량, 충/방전 시 들어오거나 나간 에너지량, cycle number, cycle segment가 측정되었다. 
 
 ---------------------------
 ### 2.2 Preprocessing
 모델 학습을 위해 다음과 같은 전처리 과정을 수행하였다. 
 
 1) 원본 데이터의 cycle number에 오류가 있어 새로운 cycle number를 부여하였다.
-2) 측정에 오류가 있는 문제 사이클을 구분하기 위해 valid_cycle을 따로 표기하였다. 
-3) mission 사이클만 학습시키기 위해 RPT 사이클을 따로 표기하였다.
-4) 충방전 시 들어오고 나간 전하량을 이용하여 SOC를 계산하였다. 
+2) 측정에 오류가 있는 문제 사이클을 구분하기 위해 valid_cycle 칼럼을 추가해 True/False로 표기하였다. 
+3) 실제 mission 사이클만 학습시키기 위해 RPT_cycle 칼럼을 추가해 True/False로 표기하였다.
+4) RPT 직후 사이클은 일반적인 mission 사이클과 진행 양상이 조금 다르기 때문에, after_RPT 칼럼을 만들어 True/False로 표기하였다. 
+5) 충방전 시 들어오고 나간 전하량을 이용하여 SOC를 계산하였다. 
    
 
 아래 사진은 전처리 이후 데이터셋의 전압, 전류, 온도 그래프이다. (VAH01)
