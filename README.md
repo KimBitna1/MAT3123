@@ -1,4 +1,6 @@
 # State of Charge (SOC) estimation for electric Vertical Take-Off and Landing aircraft (eVTOL) batteries
+
+2020199033 김빛나
 --------------------
 ## 1. Introduction
 
