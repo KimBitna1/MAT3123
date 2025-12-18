@@ -8,13 +8,13 @@
 
 리튬 이온 배터리는 전기차, 드론, 항공기 등 다양한 시스템에서 사용되는 중요한 에너지 저장 장치이다. 배터리를 안전하고 효율적으로 사용하기 위해서는 현재 배터리에 얼마나 많은 에너지가 남아있는지 정확하게 알아야 한다. 
 
-이때 사용되는 대표적인 지표는 SOC (State of Charge)이다. 이는 배터리의 nominal capacity (정격 용량)에 대해 남아있는 capacity의 비로 나타내는데, 남아있는 capacity의 비는 충방전 동안 흐르는 전류를 적분해서 구할 수 있다.
+이때 사용되는 대표적인 지표는 SOC (State of Charge)이다. 이는 배터리의 nominal capacity에 대해 남아있는 capacity의 비로 나타내는데, 남아있는 capacity의 비는 충방전 동안 흐르는 전류를 적분해서 구할 수 있다.
 
 $$
 \mathrm{SOC}(t) = \mathrm{SOC}_0 - \frac{\eta \int_{t_0}^{t} i(t)\ dt}{Q_n}
 $$
 
-여기서 $\mathrm{SOC}_0$ 은 initial SOC를, $i(t)$는 전류를 의미한다. $\eta$는 efficiency factor이며 배터리의 충방전 과정에서 발생하는 에너지 손실을 반영한다. 실제로 배터리가 노화됨에 따라 $Q_n$ (i.e., 최대 가용 전하량)이 감소하고, charge/discharge rate, 온도, self-discharge, aging 등의 요소 역시 SOC에 영향을 미치기 때문에 이러한 부분을 고려하여 보정하는 것이 필수적이다. 
+여기서 $\mathrm{SOC}_0$ 은 initial SOC를, $i(t)$는 전류를 의미한다. $\eta$는 efficiency factor이며 배터리의 충방전 과정에서 발생하는 에너지 손실을 반영한다. 실제로 배터리가 노화됨에 따라 $Q_n$이 감소하고, charge/discharge rate, 온도, self-discharge, aging 등의 요소 역시 SOC에 영향을 미치기 때문에 이러한 부분을 고려하여 보정하는 것이 필수적이다. 
 
   SOC를 정확하게 아는 것은 운행 가능 시간 예측, 시스템 제어, 안전 관리 등을 위해 중요하다. 
 그러나 실제 배터리 시스템에서는 SOC를 직접적으로 측정할 수 없다. 배터리에서 실제로 측정 가능한 것은 전압(V), 전류(I), 온도(T)이며, 이를 통해 우리는 SOC를 예측해야 한다.  
