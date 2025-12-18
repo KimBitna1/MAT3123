@@ -8,14 +8,7 @@
 
 리튬 이온 배터리는 전기차, 드론, 항공기 등 다양한 시스템에서 사용되는 중요한 에너지 저장 장치이다. 배터리를 안전하고 효율적으로 사용하기 위해서는 현재 배터리에 얼마나 많은 에너지가 남아있는지 정확하게 알아야 한다. 
 
-이때 사용되는 대표적인 지표는 SOC (State of Charge)이다. 이는 배터리의 nominal capacity (정격 용량)에 대해 남아있는 capacity의 비로 나타낸다. SOC를 나타내는 식은 아래와 같다.
-
-$$ 
-\mathrm{SOC} = \frac{Q_\text{remaining}}{Q_\text{n}}
-$$
-
-
-위의 식에서 남아있는 capacity의 양 ($$Q_n$$)은 충전 혹은 방전 동안 흐르는 전류를 적분함으로써 구할 수 있다. 따라서 SOC는 다음과 같은 식으로도 표현된다.
+이때 사용되는 대표적인 지표는 SOC (State of Charge)이다. 이는 배터리의 nominal capacity (정격 용량)에 대해 남아있는 capacity의 비로 나타내는데, 남아있는 capacity의 비는 충방전 동안 흐르는 전류를 적분해서 구할 수 있다.
 
 $$
 \mathrm{SOC}(t) = \mathrm{SOC}_0 - \frac{\eta \int_{t_0}^{t} i(t)\ dt}{Q_n}
