@@ -44,7 +44,6 @@ eVTOL 배터리의 SOC는 전압, 전류, 온도에 대해 강한 비선형성�
 ### 2.1 Data description
 본 프로젝트에서는 Carnegi Mellon University에서 공개한 eVTOL 배터리 실험 데이터셋을 사용하였다. 
 
-https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 
 해당 데이터는 eVTOL 항공기의 운용 환경을 모사한 전류 프로파일 하에서 리튬 이온 배터리를 반복적으로 충방전하며 측정된 실험 데이터이다. 
 
@@ -72,6 +71,11 @@ https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 - QCharge_mA_h, QDischarge_mA_h: 충전, 방전 시 들어오거나 나간 전하량
 - cycleNumber: 사이클 넘버
 - Ns: cycle segment
+
+
+공개된 원시 데이터에 대한 자세한 설명은 아래 링크에서 확인할 수 있다. 
+
+https://kilthub.cmu.edu/articles/dataset/eVTOL_Battery_Dataset/14226830
 
 
 ---------------------------
